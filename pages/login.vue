@@ -20,9 +20,10 @@
                 if(this.name=="" || this.password==""){
                     return false;
                 }else{
-                    this.$store.dispatch("set_authLogin")
+                    this.$store.dispatch("set_authLogin",this.name)
                     console.log(1)
                      this.$router.push("/setting")
+                     location.reload();
                 }
                    
                 
