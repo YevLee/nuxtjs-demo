@@ -6,6 +6,7 @@
     </div>
 </template>
 <script>
+      import Cookies  from "js-cookie"
     export default{
         data(){
             return{
@@ -20,13 +21,17 @@
                 if(this.name=="" || this.password==""){
                     return false;
                 }else{
-                    this.$store.dispatch("set_authLogin")
-                    console.log(1)
-                     this.$router.push("/setting")
+                    var userName=this.name;
+                    this.$store.dispatch("loginIn",userName);
+                    //登陆了立马调到settign页面
+                    if(Cookies.get("authLogin")==1){
+                        this.$router.push("/setting")
+                    }
+                     
+                    }
                 }
                    
                 
             }
         }
-    }
 </script>

@@ -28,21 +28,25 @@ Vue.use(Vuex)
 
 const store = () => new Vuex.Store({
     state: {
-        authLogin: false
+        authLogin: Cookies.get("authLogin") || 2,
+        userName:""
     },
     mutations: {
-        SET_AUTHlOGIN(state) {
-            state.authLogin = true;
-            Cookies.set('authLogin',state.authLogin);
+        LOGININ(state,data) { 
+            state.authLogin = 1;
+            Cookies.set('authLogin',JSON.parse(state.authLogin));
+            console.log(typeof Cookies.get("authLogin"));
+            state.userName=data;
+            Cookies.set('userName',JSON.parse(state.userName));
         },
         LOGINOUT(state){
-            state.authLogin=false;
-            Cookies.set('authLogin',state.authLogin);
+            state.authLogin=2;
+            Cookies.remove('authLogin');
         }
     },
     actions: {
-        set_authLogin(context) {
-            context.commit("SET_AUTHlOGIN")
+        loginIn(context,data) {
+            context.commit("LOGININ",data)
         },
         LoginOut(context){
             context.commit("LOGINOUT")
